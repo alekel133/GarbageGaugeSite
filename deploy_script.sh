@@ -9,4 +9,4 @@ cd GarbageGaugeSite
 git pull origin production
 
 # Restart the application service (example for systemd)
-sudo systemctl restart your-app-service
+sudo systemctl restart myflaskapp.service
