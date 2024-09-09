@@ -30,4 +30,4 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
-          ssh -i private_key.pem -o StrictHostKeyChecking=no garbage_gauge@ec2-100-25-157-37.compute-1.amazonaws.com "cd GarbageGaugeSite && git pull origin Prod && ./deploy_script.sh"
+          ssh -i private_key.pem -o StrictHostKeyChecking=no garbage_gauge@ec2-100-25-157-37.compute-1.amazonaws.com "cd GarbageGaugeSite && git pull origin Prod"
