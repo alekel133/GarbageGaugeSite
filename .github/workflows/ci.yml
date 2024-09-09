@@ -26,3 +26,12 @@ jobs:
           python -m venv venv
           . venv/bin/activate
           pip install -r requirements.txt
+
+    test:
+     runs-on: ubuntu-latest
+
+     steps:
+       - name: Run Tests
+       run: |
+         . venv/bin/activate
+         pytest --maxfail=1 --disable-warnings --cov=app tests/
