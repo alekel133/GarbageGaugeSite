@@ -1,0 +1,34 @@
+version: 2.1
+
+executors:
+  python-executor:
+    docker:
+      - image: circleci/python:3.9  # Use a Docker image with Python installed
+    working_directory: ~/repo
+
+jobs:
+  test:
+    executor: python-executor
+    steps:
+      - checkout  # Check out the code from GitHub
+
+      # Set up Python and dependencies
+      - run:
+          name: Set up Python environment
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+
+      # Run tests
+      - run:
+          name: Run tests with pytest
+          command: |
+            . venv/bin/activate
+            pytest --maxfail=1 --disable-warnings --cov=app tests/
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
