@@ -4,7 +4,7 @@ executors:
   python-executor:
     docker:
       - image: circleci/python:3.9  # Use a Docker image with Python installed
-    working_directory: ~/repo
+    working_directory: ~/GarbageGaugeSite
 
 jobs:
   test:
