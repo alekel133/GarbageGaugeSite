@@ -1,14 +1,16 @@
-from . import db
+from . import db, bcrypt
+from flask_login import UserMixin
 
-class User(db.Model):
-    """
-    @brief Defines a User Model for the application
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(156), unique=True, nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
 
-    @details The User model stores user information in the database
+    def set_password(self, password):
+        self.password_hash = bcrypt.generate_password_hash(password).decode("UTF-8")
 
-    @param id The user's unique identifier
-    @param username The username of the user
-    """
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.password_hash, password)
 
-    id = db.Column(db.Integer, primary_key = True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
+def get_user_by_username(username):
+    return User.query.filter_by(username=username).first()
